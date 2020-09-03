@@ -1,0 +1,27 @@
+<%- include("./partials/header.ejs") %>
+    <link rel="stylesheet" href="/css/entry.css">
+</head>
+<body>
+<div id="main">
+  <%- include("./partials/message.ejs") %>
+  <h1>Create your POLL!</h1>
+  <form action="/poll/create" method="POST">
+      <div id="question">
+      <div id="title_div">
+      <label for="title">Title</label><br>
+      <input type="text" name="title"  class="<%= validation.indexOf('title')===-1? '':'invalid' %>">
+      </div>
+      <div id="question_div">
+      <label for="question">Question</label><br>
+      <input type="text" name="question"  class="<%= validation.indexOf('question')===-1? '':'invalid' %>">
+      </div>
+      </div>
+       <p><i class="fas fa-plus"></i> Add an option</p>
+      <div id="options">
+      </div>
+      <button type="submit" id="submit">Submit</button>
+  </form>
+</div>
+<%- include("./partials/script.ejs") %>
+<script src="/js/script.js"></script>
+<%- include("./partials/footer.ejs") %>

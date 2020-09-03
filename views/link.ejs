@@ -1,0 +1,11 @@
+<%- include("./partials/header.ejs") %>
+</head>
+<body>
+<form action="/poll/link" method="POST">
+<label for="id">Enter the ID</label><br>
+<input type="text" name="id" id="id">
+<button type="submit">Submit</button>
+</form>
+<%- include("./partials/script.ejs") %>
+
+<%- include("./partials/footer.ejs") %>

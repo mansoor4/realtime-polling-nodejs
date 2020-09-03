@@ -1,0 +1,128 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+#main
+{
+    width:700px;
+    margin:30px auto;
+}
+#main h1
+{
+    color:rgb(128, 13, 194) ;
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: 600;
+}
+#main form>p
+{
+    font-size: 18px;
+    font-family: sans-serif;
+    color: rgb(83, 68, 68);
+    display: inline-block;
+    transform: translateY(20px);
+}
+#main form>p i
+{
+    background-color: rgb(128, 13, 194);
+    padding: 10px;
+    border-radius: 50%;
+    color:white;
+    cursor: pointer;
+    margin-right: 3px;
+}
+#question
+{
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+}
+#question div  input
+{
+    border: none;
+    border-bottom: 1px solid grey;
+    width:300px;
+    outline:none;
+}
+#question_div label,#title_div label
+{
+    transform: translateY(30px);
+    color: rgb(179, 179, 179);
+    transition: all .2s linear;
+}
+#options .option
+{
+    margin-top: 10px;
+}
+#options .option input
+{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(184, 184, 184);
+    width: 350px;
+}
+#options .option label
+{
+    transform: translateY(35px);
+    color: rgb(179, 179, 179);
+    transition: all .2s linear;
+
+}
+#options .option i
+{
+    padding:3px 5px;
+    color: white;
+    background-color: rgb(250, 98, 98);
+    border-radius: 50%;
+    transform: translateX(20px);
+    cursor: pointer;
+}
+#options .option i:hover
+{
+    background-color: rgb(250, 31, 31);
+}
+#submit
+{
+    outline: none;
+    background-color: white;
+    border: 1px solid rgb(128, 13, 194);
+    color: rgb(128, 13, 194);
+    margin-top: 20px;
+    padding: 1px 15px;
+    border-radius: 5px;
+}
+#submit:hover
+{
+    background-color: rgb(128, 13, 194);
+    color: white;
+}
+@media screen and (max-width:721px)
+{
+   #main
+   {
+       width:95%;
+   }
+   #question
+   {
+       display: block;
+   }
+   #question div  input
+{
+    border: none;
+    border-bottom: 1px solid grey;
+    width:95%;
+    outline:none;
+}
+#options .option input
+{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(184, 184, 184);
+    width: 85%;
+}
+}
+#title_div input.invalid,#question_div input.invalid
+{
+    border-bottom: 1px solid red;
+}

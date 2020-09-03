@@ -1,0 +1,31 @@
+<%- include("./partials/header.ejs") %>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+/>
+  </head>
+  <body>
+    <%- include("./partials/message.ejs") %>
+    <div class="container">
+      <p>Title:<%= title %></p>
+      <p><%= question %></p>
+      <form id="vote-form">
+        <% choice.forEach(element => { %>
+          <p>
+            <label>
+              <input type="radio" name="option" id="<%= element.opt %>" value="<%= element.opt %>" />
+              <span for="<%= element.opt %>"><%= element.opt %></span>
+            </label>
+          </p>
+        <% }) %> 
+        <input type="hidden" name="_id" value="<%= _id %>" id="id">
+        <input type="submit" value="Vote" class="btn" id="submit" />
+      </form>
+
+      <br /><br />
+
+      <div id="chartContainer" style="height: 300px; width: 400px"></div>
+    </div>
+    <%- include("./partials/script.ejs") %>
+    <script src="/js/main.js"></script>
+    <%- include("./partials/footer.ejs") %>
