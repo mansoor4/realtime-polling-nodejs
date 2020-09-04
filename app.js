@@ -60,11 +60,11 @@ app.use((req,res,next)=>
      res.locals.flash_error=req.flash("flash_error");
      next();
 })
-app.use("/poll", poll);
+app.use("/", poll);
 
 
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Start server
 http.listen(port, () => console.log(`Server started on port ${port}`));

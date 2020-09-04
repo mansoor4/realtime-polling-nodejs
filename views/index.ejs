@@ -5,19 +5,27 @@
 <div id="main">
   <%- include("./partials/message.ejs") %>
   <h1>Create your POLL!</h1>
-  <form action="/poll/create" method="POST">
+  <form action="/" method="POST">
       <div id="question">
       <div id="title_div">
       <label for="title">Title</label><br>
-      <input type="text" name="title"  class="<%= validation.indexOf('title')===-1? '':'invalid' %>">
+      <input type="text" name="title"  class="<%= validation.indexOf('title')===-1? '':'invalid' %>" required>
       </div>
       <div id="question_div">
       <label for="question">Question</label><br>
-      <input type="text" name="question"  class="<%= validation.indexOf('question')===-1? '':'invalid' %>">
+      <input type="text" name="question"  class="<%= validation.indexOf('question')===-1? '':'invalid' %>" required>
       </div>
       </div>
        <p><i class="fas fa-plus"></i> Add an option</p>
       <div id="options">
+        <div class="option">
+          <label for="option1">Option1</label><br>
+         <input type="text" id="1" name="option[opt1]"><i class="fas fa-times" required></i>
+         </div>
+         <div class="option">
+          <label for="option2">Option1</label><br>
+         <input type="text" id="2" name="option[opt2]"><i class="fas fa-times" required></i>
+         </div>
       </div>
       <button type="submit" id="submit">Submit</button>
   </form>

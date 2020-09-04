@@ -12,12 +12,24 @@ socket.on('connect',()=>{
     console.log('server connected');
     socket.emit('join',{
         room:_id
-    })
+	})
+	socket.on('chart',(data)=>{
+		console.log("onload");
+		chart(data)
+	})
 })
+
+
+
 
 
 socket.on('voteCount',(data)=>{
 	console.log(data);
+	chart(data)
+})
+
+// chart
+function chart(data){
 	let dataPoints = [];
 	data.choice.forEach(choice=>
 		{
@@ -27,7 +39,6 @@ socket.on('voteCount',(data)=>{
 				y:choice.vote
 				});
 		})
-	console.log(dataPoints);
 		    const chartContainer = document.querySelector("#chartContainer");
 		
 		    if (chartContainer) {
@@ -46,14 +57,12 @@ socket.on('voteCount',(data)=>{
 		      });
 			  chart.render();
 }
-})
-
-
+}
 //Fetch
 submit.addEventListener("click",function(e)
 {
 	var value;
-   e.preventDefault();
+	e.preventDefault();
    radio.forEach(radio=>
 	{
 		if(radio.checked)
@@ -63,9 +72,9 @@ submit.addEventListener("click",function(e)
 	})
 	if(value!==undefined)
 	{
-		fetch(`/poll/${_id}`,
+		fetch(`http://localhost:3000/poll/${_id}`,
 		{
-			method:"post",
+			method:"POST",
 			body:JSON.stringify(
 				{
 					option:value,
@@ -76,14 +85,14 @@ submit.addEventListener("click",function(e)
 					 "Content-Type": "application/json",
 				}),
 		})
-		.then(res=>
+		.then(()=>{
+			document.querySelector("#submit").disabled = true;
+		})
+		.catch((err)=>
 			{
-				// console.log(res)
-			})
-		.catch(err=>
-			{
-				// console.log(err);
+				console.log(err);
 			})	
 	}
+	
 
 })

@@ -1,4 +1,4 @@
-var i=1;
+var i=3;
 const question_input=$("#question_div input,#title_div input");
 const option_input=$("#options .option input");
 const add=$("#main form>p i");
