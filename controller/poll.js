@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const {validationResult}=require("express-validator");
-// const http = require("http").createServer(app);
-// let io = require("socket.io")(http);
+require('events').EventEmitter.prototype._maxListeners = 70;
+require('events').defaultMaxListeners = 70;
 
 const Vote = require("../models/Vote");
 
@@ -11,28 +11,28 @@ const Vote = require("../models/Vote");
 const keys = require("../config/keys");
 
 module.exports={
-    home:(req,res,next)=>
-    {
-       res.render("home",
-       {
-           pageTitle:"Coding block poll",
-           errors:[],
-           success_msg:[]
-       })
-    },
+    // home:(req,res,next)=>
+    // {
+    //    res.render("home",
+    //    {
+    //        pageTitle:"Coding block poll",
+    //        errors:[],
+    //        success_msg:[]
+    //    })
+    // },
 
-    link_get:(req,res,next)=>
-    {
-       res.render("link",
-       {
-           pageTitle:"link"
-       })
-    },
+    // link_get:(req,res,next)=>
+    // {
+    //    res.render("link",
+    //    {
+    //        pageTitle:"link"
+    //    })
+    // },
 
-    link_post:(req,res,next)=>
-    {
-        res.redirect("/poll/"+req.body.id);
-    },
+    // link_post:(req,res,next)=>
+    // {
+    //     res.redirect("/poll/"+req.body.id);
+    // },
 
 
     formget:(req,res)=>{
@@ -80,15 +80,16 @@ module.exports={
             .then((data)=>{
                 if(data)
                 {
-                     res.render('poll',{
-                        pageTitle:"POLL",
-                        title:data.title,
-                        question:data.question,
-                        choice:data.choice,
-                        errors:[],
-                        success_msg:["Your Poll is successfully created"],
-                        _id:data._id
-                    })
+                    res.redirect(`/poll/${data._id}`)
+                    //  res.render('poll',{
+                    //     pageTitle:"POLL",
+                    //     title:data.title,
+                    //     question:data.question,
+                    //     choice:data.choice,
+                    //     errors:[],
+                    //     success_msg:["Your Poll is successfully created"],
+                    //     _id:data._id
+                    // })
                 }
                 
             })
@@ -99,7 +100,7 @@ module.exports={
                 })
             })
         }
-        // Vote.find().then((votes) => res.json({ success: true, votes: votes }));
+       
      },
     pollget:(req,res)=>{
              // socket 
@@ -113,6 +114,7 @@ module.exports={
             .then(data=>{
                 if(data)
                 {
+                   
                     res.render('poll',
                     {
                        pageTitle:data.title,
@@ -123,6 +125,9 @@ module.exports={
                        success_msg:[],
                        _id:data._id
                    })
+                   req.io.to(data._id.toString()).emit('chart',{
+                    choice:data.choice
+                });
                 }
             })
            .catch(err=>
@@ -135,8 +140,6 @@ module.exports={
 
     pollpost:(req,res)=>{
         const{option,_id}=req.body;
-        if(req.session.vote===undefined)
-        {
         Vote.updateOne({'_id':_id,'choice.opt':option},
         {
             
@@ -153,7 +156,7 @@ module.exports={
 
                             choice:vote.choice
                         })
-                            res.json({msg:'success'});               
+                          return  res.json({msg:'success'});               
                     })
                  .catch(err=>
                     {
@@ -169,11 +172,7 @@ module.exports={
                     pageTitle:"ERROR"
                 })
             });
-        }
-        else
-        {
-            req.flash("flash-error","you can vote only one time");
-           res.redirect(`/poll/${_id}`);
-        }
+        
+      
 }
 }

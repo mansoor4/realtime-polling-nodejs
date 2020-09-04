@@ -4,16 +4,16 @@ const con=require('../controller/poll')
 const {check}=require("express-validator");
 const Vote = require("../models/Vote");
 
-router.get("/",con.home);
+// router.get("/",con.home);
 
-router.get("/link",con.link_get);
+// router.get("/link",con.link_get);
 
-router.post("/link",con.link_post);
+// router.post("/link",con.link_post);
 
 
-router.get('/create',con.formget);
+router.get('/',con.formget);
 
-router.post('/create',
+router.post('/',
 [
   check("title")
   .trim()
@@ -58,7 +58,7 @@ router.post('/create',
     }
     if(i<=1)
     {
-      throw new Error("Options must be more than 1");
+      throw new Error("Options must be more than 2");
     }
     return true;
   })  
@@ -66,7 +66,7 @@ router.post('/create',
 con.formpost)
 
 // change in title or id
-router.route('/:id')
+router.route('/poll/:id')
   .get(con.pollget)
   .post(con.pollpost)
 
